@@ -1,0 +1,13 @@
+{
+	"manifest_version": 1,
+	"id": "net.yf-19.friedbis.joplin-plugin-hexo-support",
+	"app_min_version": "2.8",
+	"version": "1.0.0",
+	"name": "joplin-plugin-hexo-support",
+	"description": "add some buttons of blogging support for hexo",
+	"author": "friedbis",
+	"homepage_url": "https://superpack.yf-19.net",
+	"repository_url": "https://github.com/friedbis/joplin-plugin-hexo-support.git",
+	"keywords": [],
+	"categories": []
+}

@@ -7,8 +7,8 @@ export namespace settings {
 
 	export async function register() {
 		await joplin.settings.registerSection(SECTION, {
-			label: "Menu items, shortcuts, toolbar icons",
-			iconName: "fas fa-tools",
+			label: "joplin-plugin-hexo-support",
+			iconName: "fas fa-edit",
 		});
 
 		let PLUGIN_SETTINGS = {};
@@ -19,7 +19,7 @@ export namespace settings {
 			section: SECTION,
 			type: SettingItemType.Bool,
 			label: 'Only activate, if enabled in Markdown Plugin settings',
-			description: "Only activate menu items, shortcuts, and toolbar icons for markdown plugins which are enabled in Joplin's settings. (requires restart)",
+			description: "Only activate menu items, toolbar icons for hexo which are enabled in Joplin's settings. (requires restart)",
 		}
 
 		for (const actionName in actions) {
@@ -32,7 +32,7 @@ export namespace settings {
 				section: SECTION,
 				advanced: true,
 				type: SettingItemType.Bool,
-				label: 'Remove toolbar icon for ' + action.wrapString + action.label + action.wrapString + ' (requires restart)',
+				label: 'Remove toolbar icon for ' + action.label + ' (requires restart)',
 			}
 		}
 

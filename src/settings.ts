@@ -19,7 +19,7 @@ export namespace settings {
 			section: SECTION,
 			type: SettingItemType.Bool,
 			label: 'Only activate, if enabled in Markdown Plugin settings',
-			description: "Only activate menu items, toolbar icons for hexo which are enabled in Joplin's settings. (requires restart)",
+			description: "Only activate menu items, toolbar icons for supporting hexo which are enabled in Joplin's settings. (requires restart)",
 		}
 
 		for (const actionName in actions) {

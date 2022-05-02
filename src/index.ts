@@ -2,59 +2,70 @@ import joplin from 'api';
 import { MenuItemLocation } from 'api/types';
 import { ToolbarButtonLocation } from 'api/types';
 import { settings } from "./settings";
-import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING, hostList  } from "./common";
+import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING, hostList, DEFAULTID  } from "./common";
 
 function wrapSelectionWithStrings(selected: string|null){
+	// Determine host info and throw into subfunc
 	for(const host in hostList){
 		const objHost = hostList[host];
 		if(selected.search(objHost.hostname)>-1){
-			return wrapSelectionWithStrings2(selected, objHost.wrapString1, objHost.wrapString2, objHost.defaultText, objHost.hostname, objHost.queryString);
+			console.log('Detected ['+objHost.name+']');
+			return _wrapSelectionWithStrings(selected, objHost);
 		}
 		if(objHost.anotherHostname!==""&&selected.search(objHost.anotherHostname)>-1){
-			return wrapSelectionWithStrings2(selected, objHost.wrapString1, objHost.wrapString2, objHost.defaultText, objHost.anotherHostname, objHost.queryString);
+			console.log('Detected ['+objHost.name+']');
+			return _wrapSelectionWithStrings(selected, objHost);
 		}
 		if(selected.search(objHost.name)>-1){
-			return wrapSelectionWithStrings2(selected, objHost.wrapString1, objHost.wrapString2, objHost.defaultText, objHost.name, objHost.queryString);
+			console.log('Detected ['+objHost.name+']');
+			return _wrapSelectionWithStrings(selected, objHost);
 		}
 	}
 }
 
-function wrapSelectionWithStrings2(selected: string|null, string1: string, string2: string, defaultText: string, hostname: string, queryString: string) {
-	if (!selected) selected = defaultText;
-	
+function _wrapSelectionWithStrings(selected: string|null, Host: any) {
+	if (!selected) selected = Host.defaultURL;
+
 	// Remove white space on either side of selection
 	const start = selected.search(/[^\s]/);
 	const end = selected.search(/[^\s](?=[\s]*$)/);
 	const core = selected.slice(start,  end + 1);
-	console.log(core);
 
-	// If selection can be toggled do that
-	if (core.startsWith(string1) && core.endsWith(string2)) {
-		const inside = core.slice(string1.length, core.length - string2.length);
-		return selected.slice(0, start) + inside + selected.slice(end + 1);
+	// Translate URL <-> TagOWL
+	if (core.startsWith(Host.wrapString1) && core.endsWith(Host.wrapString2)) {
+		console.log('TagOWL -> URL');
+		const inside = core.slice(Host.wrapString1.length, core.length - Host.wrapString2.length);
+		const defaulturl = Host.defaultURL.replace(DEFAULTID, inside);
+		console.log('['+defaulturl+']');
+		return defaulturl;
 	} else {
-		const videoid=getVideoId(selected, defaultText, hostname, queryString);
-		console.log(videoid);
-		return selected.slice(0, start) + string1 + videoid + string2 + selected.slice(end + 1);
+		console.log('URL -> TagOWL');
+		const mediaid=getMediaId(selected, Host.hostname, Host.queryString);
+		const tagowl=selected.slice(0, start) + Host.wrapString1 + mediaid + Host.wrapString2 + selected.slice(end + 1);
+		console.log('['+tagowl+']');
+		return tagowl;
 	}
 }
 
-function getVideoId(selected: string, defaultText: string, hostname: string, queryString: string){
+function getMediaId(selected: string, hostname: string, queryString: string){
+	// Parse URL
 	let parse: URL;
 	try {
+		console.log('Parsing URL');
 		parse = new URL(selected);
 	}catch(err){
 		console.log('Error parsing URL');
-		//parse = new URL(defaultText);
 		return '**error**';
 	}
 
 	if(parse.hostname.search(hostname)<0){
+		console.log('Invalid hostname');
 		return '**error**';
 	}
 
-	//parsing videoid
+	// Parse mediaid
 	if(queryString!==""){
+		console.log('Parsing MediaID');
 		const start = parse.search.search(queryString);
 		if(start>-1){
 			const params = parse.searchParams;
@@ -63,9 +74,14 @@ function getVideoId(selected: string, defaultText: string, hostname: string, que
 		}
 	}
 
+	// Parse pathname
+	console.log('Parsing pathname');
 	const pathArray = parse.pathname.split('/');
 	if(pathArray[pathArray.length-1]!==''){
-		return pathArray[pathArray.length-1];
+		if(hostname.search('giphy')>-1)
+			return pathArray[pathArray.length-2];
+		else
+			return pathArray[pathArray.length-1];
 	}else{
 		return pathArray[pathArray.length-2];
 	}

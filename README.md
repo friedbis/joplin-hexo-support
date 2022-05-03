@@ -16,7 +16,7 @@ This is created assuming that can work in [hexo-tag-owl-fb](https://github.com/f
 
 #### Examples
 
-##### ==images==
+##### __images__
 
 https://media.giphy.com/media/XXXXXXXXXXXXX/giphy.gif -> {% owl giphy XXXXXXXXXXXXX %}
 
@@ -25,7 +25,7 @@ https://imgur.com/gallery/XXXXXXX -> {% owl imgur XXXXXXX %}
 local images doesn't work.
 I'm thinking whether it can work in other way.
 
-##### ==videos==
+##### __videos__
 
 https://youtu.be/XXXXXXXXX -> {% owl youtube XXXXXXXXX %}
 

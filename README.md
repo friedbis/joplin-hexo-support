@@ -37,5 +37,5 @@ https://www.nicovideo.jp/watch/XXXXXXXX -> {% owl niconico XXXXXXXX watch %}
 
 https://www.dailymotion.com/video/XXXXXXX -> {% owl dailymotion XXXXXXX %}
 
-bilibili, tudou, youku, tencent, ted don't work because I don't use them at all:)
+bilibili, tudou, youku, tencent, ted don't work because I don't use them at all. :)
 

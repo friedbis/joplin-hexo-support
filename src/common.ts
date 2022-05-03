@@ -10,7 +10,7 @@ export const hostList = {
 	YouTube: {
 		name: 'youtube',
 		wrapString1: '{% owl youtube ',
-        wrapString2: ' %}',
+		wrapString2: ' %}',
 		defaultURL: 'https://www.youtube.com/watch?v=NNNNNNNN',
 		hostname: 'youtube.com',
 		anotherHostname: 'youtu.be',
@@ -19,7 +19,7 @@ export const hostList = {
 	DailyMotion: {
 		name: 'dailymotion',
 		wrapString1: '{% owl dailymotion ',
-        wrapString2: ' %}',
+		wrapString2: ' %}',
 		defaultURL: 'https://www.dailymotion.com/video/NNNNNNNN',
 		hostname: 'dailymotion.com',
 		anotherHostname: '',
@@ -28,7 +28,7 @@ export const hostList = {
 	NicoNico: {
 		name: 'niconico',
 		wrapString1: '{% owl niconico ',
-        wrapString2: ' watch %}',
+		wrapString2: ' watch %}',
 		defaultURL: 'https://www.nicovideo.jp/watch/NNNNNNNN',
 		hostname: 'nicovideo.jp',
 		anotherHostname: 'nico.ms',
@@ -37,7 +37,7 @@ export const hostList = {
 	vimeo: {
 		name: 'vimeo',
 		wrapString1: '{% owl vimeo ',
-        wrapString2: ' %}',
+		wrapString2: ' %}',
 		defaultURL: 'https://vimeo.com/NNNNNNNN',
 		hostname: 'vimeo.com',
 		anotherHostname: '',
@@ -46,7 +46,7 @@ export const hostList = {
 	IMDB: {
 		name: 'imdb',
 		wrapString1: '{% owl imdb ',
-        wrapString2: ' %}',
+		wrapString2: ' %}',
 		defaultURL: 'https://www.imdb.com/title/NNNNNNNN/?ref_=ext_shr_lnk',
 		hostname: 'imdb.com',
 		anotherHostname: '',
@@ -55,7 +55,7 @@ export const hostList = {
 	GIPHY: {
 		name: 'giphy',
 		wrapString1: '{% owl giphy ',
-        wrapString2: ' %}',
+		wrapString2: ' %}',
 		defaultURL: 'https://media.giphy.com/media/NNNNNNNN/giphy.gif',
 		hostname: 'giphy.com',
 		anotherHostname: '',
@@ -64,7 +64,7 @@ export const hostList = {
 	Imgur: {
 		name: 'imgur',
 		wrapString1: '{% owl imgur ',
-        wrapString2: ' %}',
+		wrapString2: ' %}',
 		defaultURL: 'https://imgur.com/gallery/NNNNNNNN',
 		hostname: 'imgur.com',
 		anotherHostname: '',
@@ -72,9 +72,9 @@ export const hostList = {
 	},
 };
 
-export const DTI_SETTINGS_PREFIX      = 'hexoSupport.';
-export const ACTIVATE_ONLY_SETTING    = 'activateOnlyIfEnabledInMarkdownSettings';
-export const DEFAULTID                = 'NNNNNNNN';
+export const DTI_SETTINGS_PREFIX	  = 'hexoSupport.';
+export const ACTIVATE_ONLY_SETTING	= 'activateOnlyIfEnabledInMarkdownSettings';
+export const DEFAULTID				= 'NNNNNNNN';
 
 export default {
 	actions,

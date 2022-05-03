@@ -22,7 +22,7 @@ https://media.giphy.com/media/XXXXXXXXXXXXX/giphy.gif -> {% owl giphy XXXXXXXXXX
 
 https://imgur.com/gallery/XXXXXXX -> {% owl imgur XXXXXXX %}
 
-local images doesn't work.
+local images don't work.
 I'm thinking whether it can work in other way.
 
 ##### __videos__

@@ -1,11 +1,119 @@
 
+function showMultiDialog(selected: string){
+	let query=`<input type='hidden' name='query' value='${selected}'>`;
+
+	return `
+	<script>
+	window.onload=()=>{
+		alert('load');
+		pageload("${selected}");
+	}
+	</script>
+	<div id='result'></div>
+	`;
+}
+
+function wrapSelectionWithStrings(selected: string|null){
+	// Determine host info and throw into subfunc
+	for(const host in hostList){
+		const objHost = hostList[host];
+		if(selected.search(objHost.hostname)>-1){
+			console.log('Detected ['+objHost.name+']');
+			return _wrapSelectionWithStrings(selected, objHost);
+		}
+		if(objHost.anotherHostname!==""&&selected.search(objHost.anotherHostname)>-1){
+			console.log('Detected ['+objHost.name+']');
+			return _wrapSelectionWithStrings(selected, objHost);
+		}
+		if(selected.search(objHost.name)>-1){
+			console.log('Detected ['+objHost.name+']');
+			return _wrapSelectionWithStrings(selected, objHost);
+		}
+	}
+}
+
+function _wrapSelectionWithStrings(selected: string|null, Host: any) {
+	if (!selected) selected = Host.defaultURL;
+
+	// Remove white space on either side of selection
+	const start = selected.search(/[^\s]/);
+	const end = selected.search(/[^\s](?=[\s]*$)/);
+	const core = selected.slice(start,  end + 1);
+
+	// Translate URL <-> TagOWL
+	if (core.startsWith(Host.wrapString1) && core.endsWith(Host.wrapString2)) {
+		console.log('TagOWL -> URL');
+		const inside = core.slice(Host.wrapString1.length, core.length - Host.wrapString2.length);
+		const defaulturl = Host.defaultURL.replace(DEFAULTID, inside);
+		console.log('['+defaulturl+']');
+		return defaulturl;
+	} else {
+		console.log('URL -> TagOWL');
+		const mediaid=getMediaId(selected, Host.hostname, Host.queryString);
+		const tagowl=selected.slice(0, start) + Host.wrapString1 + mediaid + Host.wrapString2 + selected.slice(end + 1);
+		console.log('['+tagowl+']');
+		return tagowl;
+	}
+}
+
+function getMediaId(selected: string, hostname: string, queryString: string){
+	// Parse URL
+	let parse: URL;
+	try {
+		console.log('Parsing URL');
+		parse = new URL(selected);
+	}catch(err){
+		console.log('Error parsing URL');
+		return '**error**';
+	}
+
+	if(parse.hostname.search(hostname)<0){
+		console.log('Invalid hostname');
+		return '**error**';
+	}
+
+	// Parse mediaid
+	if(queryString!==""){
+		console.log('Parsing MediaID');
+		const start = parse.search.search(queryString);
+		if(start>-1){
+			const params = parse.searchParams;
+			const query = queryString.replace('=','').replace('?','');
+			return params.get(query);
+		}
+	}
+
+	// Parse pathname
+	console.log('Parsing pathname');
+	const pathArray = parse.pathname.split('/');
+	if(pathArray[pathArray.length-1]!==''){
+		if(hostname.search('giphy')>-1)
+			return pathArray[pathArray.length-2];
+		else
+			return pathArray[pathArray.length-1];
+	}else{
+		return pathArray[pathArray.length-2];
+	}
+}
+
 export const actions = {
 	textHexoTagOwl: {
 		label: 'hexo-tag-owl',
 		iconName: 'fas fa-percent',
 		accelerator: 'CmdOrCtrl+Shift+T',
+		execute: wrapSelectionWithStrings,
+		showDialog: false,
 	},
+	textNewWindow: {
+		label: 'google-search',
+		iconName: 'fab fa-google',
+		accelerator: 'CmdOrCtrl+Shift+G',
+		execute: showMultiDialog,
+		showDialog: true,
+	},
+
 };
+
 export const hostList = {
 	YouTube: {
 		name: 'youtube',
@@ -80,6 +188,4 @@ export default {
 	actions,
 	DTI_SETTINGS_PREFIX,
 	ACTIVATE_ONLY_SETTING,
-	DEFAULTID,
-	hostList,
 }

@@ -1,15 +1,10 @@
 
 function showMultiDialog(selected: string){
-	let query=`<input type='hidden' name='query' value='${selected}'>`;
+	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
 	return `
-	<script>
-	window.onload=()=>{
-		alert('load');
-		pageload("${selected}");
-	}
-	</script>
 	<div id='result'></div>
+	${query}
 	`;
 }
 

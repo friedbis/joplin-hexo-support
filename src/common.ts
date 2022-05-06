@@ -1,8 +1,4 @@
 
-function parseFormData(formdata: HTMLElement, actionType: string){
-
-}
-
 function showGTDialog(selected: string){
 	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
@@ -119,6 +115,7 @@ export const actions = {
 		iconName: 'fas fa-percent',
 		accelerator: 'CmdOrCtrl+Shift+W',
 		execute: wrapSelectionWithStrings,
+		parseFormType: '',
 		showDialog: false,
 	},
 	textGoogleSearch: {
@@ -126,6 +123,7 @@ export const actions = {
 		iconName: 'fab fa-google',
 		accelerator: 'CmdOrCtrl+Shift+G',
 		execute: showGSDialog,
+		parseFormType: 'Google Search',
 		showDialog: true,
 	},
 	textGoogleTranslate: {
@@ -133,6 +131,7 @@ export const actions = {
 		iconName: 'fa-duotone fa-language',
 		accelerator: 'CmdOrCtrl+Shift+T',
 		execute: showGTDialog,
+		parseFormType: 'Google Translate',
 		showDialog: true,
 	},
 };

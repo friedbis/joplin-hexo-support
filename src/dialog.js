@@ -3,7 +3,7 @@ function searchInGoogle() {
     let searchengine='https://www.google.com/search?q=';
     let result=document.getElementById('result');
 
-    console.log(`query:${query}`);
+    console.log('query:'+query+'');
     fetch(searchengine + query).then(response => response.text()).then((data)=>{
         let xml=new DOMParser();
         let _div=xml.parseFromString(data, 'text/html');

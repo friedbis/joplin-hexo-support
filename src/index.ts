@@ -47,7 +47,7 @@ joplin.plugins.register({
 						await dialogs.setHtml(dialog, action.execute(selectedText));
 						const result=await dialogs.open(dialog);
 						const formdata = result.formData.formdata;
-						newText = (formdata.resultURL!=="")?generateLink(formdata.resultTitle, formdata.resultURL):selectedText;
+						newText = parseFormData(formdata, action.parseFormType);
 					}else{
 						console.log('return something else but dialog');
 						newText = action.execute(selectedText);
@@ -69,4 +69,12 @@ joplin.plugins.register({
 
 function generateLink(stringLink: string, stringURL: string, genType = ''){
 	return (genType==="img"?"!":"")+"["+stringLink+"]"+"("+stringURL+")";
+}
+
+function parseFormData(formdata: any, actionType: string){
+	if(actionType==="Google Translate"){
+		return (formdata.resultText!=="")?formdata.resultText:formdata.query;
+	}else{
+		return (formdata.resultURL!=="")?generateLink(formdata.resultTitle, formdata.resultURL):formdata.query;
+	}
 }

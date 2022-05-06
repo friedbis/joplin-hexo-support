@@ -43,8 +43,7 @@ bilibili, tudou, youku, tencent, ted don't work because I don't use them at all.
 
 Translate a selected text into link format string using a result of Google Search.
 
-
 #### Examples
 
-Apple, Inc. -> \[Apple, Inc.](https://www.apple.com/jp/)
+Apple, Inc. -> \[Apple（日本）](https://www.apple.com/jp/)
 

@@ -1,4 +1,8 @@
 
+function parseFormData(formdata: HTMLElement, actionType: string){
+
+}
+
 function showGTDialog(selected: string){
 	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
@@ -6,7 +10,7 @@ function showGTDialog(selected: string){
 	<h2 id='linktitle'></h2>
 	<div id='result'></div>
 	<form id='formdata' name='formdata'>
-	<input id='resultURL' name='resultURL' type='hidden' value=''>
+	<input id='resultText' name='resultText' type='hidden' value=''>
 	${query}
 	</form>
 	`;
@@ -124,7 +128,6 @@ export const actions = {
 		execute: showGSDialog,
 		showDialog: true,
 	},
-	/*
 	textGoogleTranslate: {
 		label: 'google-translate',
 		iconName: 'fa-duotone fa-language',
@@ -132,7 +135,6 @@ export const actions = {
 		execute: showGTDialog,
 		showDialog: true,
 	},
-	*/
 };
 
 export const hostList = {

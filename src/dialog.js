@@ -20,10 +20,13 @@ function searchInGoogle() {
 }
 function clickValue(url, index){
     let resultURL=document.getElementById('resultURL');
+    let resultTitle=document.getElementById('resultTitle');
     let linktitle=document.getElementById('linktitle');
+    let linkid=document.getElementById("link_"+index).innerText;
 
     resultURL.value=url;
-    linktitle.innerHTML=document.getElementById("link_"+index).innerText;
+    linktitle.innerText=linkid;
+    resultTitle.value=linkid;
     return true;
 }
 

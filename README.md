@@ -39,3 +39,12 @@ https://www.dailymotion.com/video/XXXXXXX -> {% owl dailymotion XXXXXXX %}
 
 bilibili, tudou, youku, tencent, ted don't work because I don't use them at all. :)
 
+### Google Search
+
+Translate a selected text into link format string using a result of Google Search.
+
+
+#### Examples
+
+Apple, Inc. -> \[Apple, Inc.](https://www.apple.com/jp/)
+

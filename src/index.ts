@@ -47,7 +47,7 @@ joplin.plugins.register({
 						await dialogs.setHtml(dialog, action.execute(selectedText));
 						const result=await dialogs.open(dialog);
 						const formdata = result.formData.formdata;
-						newText = (formdata.resultURL!=="")?generateLink(formdata.query, formdata.resultURL):selectedText;
+						newText = (formdata.resultURL!=="")?generateLink(formdata.resultTitle, formdata.resultURL):selectedText;
 					}else{
 						console.log('return something else but dialog');
 						newText = action.execute(selectedText);

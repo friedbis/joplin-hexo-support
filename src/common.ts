@@ -20,6 +20,7 @@ function showGSDialog(selected: string){
 	<div id='result'></div>
 	<form id='formdata' name='formdata'>
 	<input id='resultURL' name='resultURL' type='hidden' value=''>
+	<input id='resultTitle' name='resultTitle' type='hidden' value=''>
 	${query}
 	</form>
 	`;

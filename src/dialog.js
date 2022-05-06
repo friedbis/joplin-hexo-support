@@ -1,6 +1,6 @@
 function searchInGoogle() {
     let query=document.getElementById('query').value;
-    let searchengine='https://www.google.com/search?hl=ja&lr=lang_ja&q=';
+    let searchengine='https://www.google.com/search?q=';
     let result=document.getElementById('result');
 
     console.log(`query:${query}`);

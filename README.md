@@ -42,11 +42,10 @@ bilibili, tudou, youku, tencent, ted don't work because I don't use them at all.
 ### Google Search
 
 Translate a selected text into link format string using a result of Google Search.
-
-#### Google Search Examples
-
 Select a text that you want to search and press short cut key(Ctrl|Cmd + Shift + G) and then a search result dialog will be displayed,
 Select a link you want to paste into your note and click [__CLOSE__], and the dialog will be close to paste the link into it.
+
+#### Google Search Examples
 
 **Apple, Inc.** -> \[**Apple（日本）**](https://www.apple.com/jp/)
 

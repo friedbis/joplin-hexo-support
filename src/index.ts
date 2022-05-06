@@ -14,7 +14,7 @@ joplin.plugins.register({
 		const dialog = await dialogs.create('search_dialog');
 		await joplin.views.dialogs.addScript(dialog, 'jquery.min.js');
 		await joplin.views.dialogs.addScript(dialog, 'dialog.js');
-		//await joplin.views.dialogs.addScript(dialog, 'dialog.css');
+		await joplin.views.dialogs.addScript(dialog, 'dialog.css');
 		await dialogs.setButtons(dialog, [
 			{
 				id: 'cancel',
@@ -41,17 +41,17 @@ joplin.plugins.register({
 					const selectedText = (await joplin.commands.execute('selectedText') as string);
 
 					console.log('setting action');
-					let newText;
+					let newText = '' as string;
 					if(action.showDialog){
 						console.log('show dialog');
 						await dialogs.setHtml(dialog, action.execute(selectedText));
 						const result=await dialogs.open(dialog);
-						newText = result.formData.searchResult;
+						const formdata = result.formData.formdata;
+						newText = (formdata.resultURL!=="")?generateLink(formdata.query, formdata.resultURL):selectedText;
 					}else{
 						console.log('return something else but dialog');
 						newText = action.execute(selectedText);
 					}
-					
 
 					await joplin.commands.execute('replaceSelection', newText);
 					await joplin.commands.execute('editor.focus');
@@ -66,3 +66,7 @@ joplin.plugins.register({
 
 	},
 });
+
+function generateLink(stringLink: string, stringURL: string, genType = ''){
+	return (genType==="img"?"!":"")+"["+stringLink+"]"+"("+stringURL+")";
+}

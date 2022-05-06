@@ -1,10 +1,27 @@
 
-function showMultiDialog(selected: string){
+function showGTDialog(selected: string){
 	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
 	return `
+	<h2 id='linktitle'></h2>
 	<div id='result'></div>
+	<form id='formdata' name='formdata'>
+	<input id='resultURL' name='resultURL' type='hidden' value=''>
 	${query}
+	</form>
+	`;
+}
+
+function showGSDialog(selected: string){
+	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
+
+	return `
+	<h2 id='linktitle'></h2>
+	<div id='result'></div>
+	<form id='formdata' name='formdata'>
+	<input id='resultURL' name='resultURL' type='hidden' value=''>
+	${query}
+	</form>
 	`;
 }
 
@@ -95,18 +112,26 @@ export const actions = {
 	textHexoTagOwl: {
 		label: 'hexo-tag-owl',
 		iconName: 'fas fa-percent',
-		accelerator: 'CmdOrCtrl+Shift+T',
+		accelerator: 'CmdOrCtrl+Shift+W',
 		execute: wrapSelectionWithStrings,
 		showDialog: false,
 	},
-	textNewWindow: {
+	textGoogleSearch: {
 		label: 'google-search',
 		iconName: 'fab fa-google',
 		accelerator: 'CmdOrCtrl+Shift+G',
-		execute: showMultiDialog,
+		execute: showGSDialog,
 		showDialog: true,
 	},
-
+	/*
+	textGoogleTranslate: {
+		label: 'google-translate',
+		iconName: 'fa-duotone fa-language',
+		accelerator: 'CmdOrCtrl+Shift+T',
+		execute: showGTDialog,
+		showDialog: true,
+	},
+	*/
 };
 
 export const hostList = {

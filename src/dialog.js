@@ -5,21 +5,26 @@ function searchInGoogle() {
 
     console.log(`query:${query}`);
     fetch(searchengine + query).then(response => response.text()).then((data)=>{
-        //console.log(data);
         let xml=new DOMParser();
         let _div=xml.parseFromString(data, 'text/html');
-        //console.log(_div);
         let div=_div.getElementsByClassName("yuRUbf");
+
         result.innerHTML+='<ul>';
-        Array.prototype.forEach.call(div, function(element){
-            //console.log(element);
+        Array.prototype.forEach.call(div, function(element, index){
             let title=element.getElementsByClassName("LC20lb")[0].innerHTML;
-            let link=element.getElementsByClassName("iUh30")[0].innerHTML.replace(/<[^>]+>[^<]+<\/[^>]+>/g,'');
-            //console.log(title);
-            //console.log(link);
-            result.innerHTML+=`<li><a href='${link}' target='_blank'>${title}</a></li>`;
+            let link=element.getElementsByTagName("a")[0].getAttribute("href");
+            result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickValue("${link}",${index})'>${title}</a></li>`;
         });
         result.innerHTML+='</ul>';
     });
 }
+function clickValue(url, index){
+    let resultURL=document.getElementById('resultURL');
+    let linktitle=document.getElementById('linktitle');
+
+    resultURL.value=url;
+    linktitle.innerHTML=document.getElementById("link_"+index).innerText;
+    return true;
+}
+
 searchInGoogle();

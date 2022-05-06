@@ -3,6 +3,7 @@ import { MenuItemLocation } from 'api/types';
 import { ToolbarButtonLocation } from 'api/types';
 import { settings } from "./settings";
 import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING  } from "./common";
+import { debuglog } from 'util';
 
 joplin.plugins.register({
 	onStart: async function() {
@@ -11,11 +12,20 @@ joplin.plugins.register({
 		const activateOnlyIfEnabledInMarkdownSettings = await joplin.settings.value(ACTIVATE_ONLY_SETTING);
 
 		const dialogs = joplin.views.dialogs;
-		const dialog = await dialogs.create('search_dialog');
-		await joplin.views.dialogs.addScript(dialog, 'jquery.min.js');
-		await joplin.views.dialogs.addScript(dialog, 'dialog.js');
-		await joplin.views.dialogs.addScript(dialog, 'dialog.css');
-		await dialogs.setButtons(dialog, [
+		const gsDialog = await dialogs.create('search_dialog');
+		await joplin.views.dialogs.addScript(gsDialog, 'jquery.min.js');
+		await joplin.views.dialogs.addScript(gsDialog, 'dialog.js');
+		await joplin.views.dialogs.addScript(gsDialog, 'dialog.css');
+		await dialogs.setButtons(gsDialog, [
+			{
+				id: 'cancel',
+				title: 'Close'
+			}
+		]);
+		const trDialog = await dialogs.create('translate_dialog');
+		await joplin.views.dialogs.addScript(trDialog, 'translatedialog.js');
+		await joplin.views.dialogs.addScript(trDialog, 'dialog.css');
+		await dialogs.setButtons(trDialog, [
 			{
 				id: 'cancel',
 				title: 'Close'
@@ -44,9 +54,15 @@ joplin.plugins.register({
 					let newText = '' as string;
 					if(action.showDialog){
 						console.log('show dialog');
-						await dialogs.setHtml(dialog, action.execute(selectedText));
-						const result=await dialogs.open(dialog);
-						const formdata = result.formData.formdata;
+						let dlg;
+						if(action.parseFormType==="Google Search"){
+							dlg=gsDialog;
+						}else{
+							dlg=trDialog;
+						}
+						await dialogs.setHtml(dlg, action.execute(selectedText));
+						const result=await dialogs.open(dlg);
+						const formdata = result.formData.formdata;	
 						newText = parseFormData(formdata, action.parseFormType);
 					}else{
 						console.log('return something else but dialog');

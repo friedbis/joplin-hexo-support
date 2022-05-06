@@ -3,7 +3,6 @@ function showGTDialog(selected: string){
 	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
 	return `
-	<h2 id='linktitle'></h2>
 	<div id='result'></div>
 	<form id='formdata' name='formdata'>
 	<input id='resultText' name='resultText' type='hidden' value=''>
@@ -129,7 +128,7 @@ export const actions = {
 	textGoogleTranslate: {
 		label: 'google-translate',
 		iconName: 'fa-duotone fa-language',
-		accelerator: 'CmdOrCtrl+Shift+T',
+		accelerator: 'CmdOrCtrl+Shift+R',
 		execute: showGTDialog,
 		parseFormType: 'Google Translate',
 		showDialog: true,

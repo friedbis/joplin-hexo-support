@@ -3,7 +3,10 @@ function showGTDialog(selected: string){
 	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
 	return `
-	<div id='result'></div>
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	<div id='result'>
+		<a href="#googtrans(ja|en)" id="tr-e2j" data-lang="en">e->j</a>
+	</div>
 	<form id='formdata' name='formdata'>
 	<input id='resultText' name='resultText' type='hidden' value=''>
 	${query}

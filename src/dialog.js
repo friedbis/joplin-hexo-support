@@ -61,6 +61,13 @@ function searchInWebiio() {
                 });
                 found=true;
             }
+            if(title.search('；')>-1){
+                Array.prototype.forEach.call(title.split('；'), function(trText){
+                    result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickTranslateValue(${index})'>${trText}。</li>`;
+                    index++;
+                });
+                found=true;
+            }
             if(title.search(';')>-1){
                 Array.prototype.forEach.call(title.split(';'), function(trText){
                     result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickTranslateValue(${index})'>${trText}</li>`;

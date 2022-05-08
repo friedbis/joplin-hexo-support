@@ -6,7 +6,9 @@ This plugin is a support tool for Hexo.
 
 1. Translate a selected url into hexo owl tag
 1. ~~[ToDo] Search text and download image from the result and insert the image~~
-1. [ToDo] Add items of **Google Search** and **Google Translate** into a context-menu for a selected text
+1. ~~[ToDo] Add items of **Google Search** and **Google Translate** into a context-menu for a selected text~~
+1. Press shortcut key for Google Search dialog, and translate a selected text into the search result in link format.
+1. Press shortcut key for Text Translation dialog, and translate a selected text into the text in other language.
 
 ### Hexo Tag Owl
 
@@ -51,3 +53,8 @@ Select a link you want to paste into your note and click [__CLOSE__], and the di
 
 **Joplin API References** -> \[**Joplin Plugin API Documentation**](https://joplinapp.org/api/references/plugin_api/classes/joplin.html)
 
+### Text Translation (English &lt;-> Japanese)
+
+Translate a seleted text into the result in other language.
+This functions only works in Japanese to English or English to Japanese.
+And it also works only in one or a couple of words at once.

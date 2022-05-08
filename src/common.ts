@@ -6,7 +6,12 @@ function returnQuery(formdata: any){
 function generateLink(formdata: any, genType = ''){
 	let link=formdata.resultTitle;
 	let url=formdata.resultURL;
-	return ((genType==="img"||genType==="image")?"!":"")+"["+link+"]"+"("+url+")";
+
+	if(link===""){
+		return formdata.query;
+	}else{
+		return ((genType==="img"||genType==="image")?"!":"")+"["+link+"]"+"("+url+")";
+	}
 }
 
 function showDialog(selected: string, dlgTitle: string){

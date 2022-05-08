@@ -51,6 +51,7 @@ Select a link you want to paste into your note and click [__CLOSE__], and the di
 
 **Apple, Inc.** -> \[**Apple（日本）**](https://www.apple.com/jp/)
 
+
 **Joplin API References** -> \[**Joplin Plugin API Documentation**](https://joplinapp.org/api/references/plugin_api/classes/joplin.html)
 
 ### Text Translation (English &lt;-> Japanese)
@@ -60,4 +61,17 @@ This functions only works in Japanese to English or English to Japanese.
 And it also works only in one or a couple of words at once.
 
 #### Text Translation Examples
+
+**Don't go** -> **行かないで**
+
+
+**超常現象** -> **psi**
+
+
+**Supercalifragilisticexpialidocious** -> **すばらしい**
+
+
+**パタニティ** -> **fatherhood**
+
+
 

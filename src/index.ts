@@ -3,7 +3,6 @@ import { MenuItemLocation } from 'api/types';
 import { ToolbarButtonLocation } from 'api/types';
 import { settings } from "./settings";
 import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING  } from "./common";
-import { debuglog } from 'util';
 
 joplin.plugins.register({
 	onStart: async function() {
@@ -12,20 +11,10 @@ joplin.plugins.register({
 		const activateOnlyIfEnabledInMarkdownSettings = await joplin.settings.value(ACTIVATE_ONLY_SETTING);
 
 		const dialogs = joplin.views.dialogs;
-		const gsDialog = await dialogs.create('search_dialog');
-		await joplin.views.dialogs.addScript(gsDialog, 'jquery.min.js');
-		await joplin.views.dialogs.addScript(gsDialog, 'dialog.js');
-		await joplin.views.dialogs.addScript(gsDialog, 'dialog.css');
-		await dialogs.setButtons(gsDialog, [
-			{
-				id: 'cancel',
-				title: 'Close'
-			}
-		]);
-		const trDialog = await dialogs.create('translate_dialog');
-		await joplin.views.dialogs.addScript(trDialog, 'translatedialog.js');
-		await joplin.views.dialogs.addScript(trDialog, 'dialog.css');
-		await dialogs.setButtons(trDialog, [
+		const dialog = await dialogs.create('search_dialog');
+		await joplin.views.dialogs.addScript(dialog, 'jquery.min.js');
+		await joplin.views.dialogs.addScript(dialog, 'dialog.css');
+		await dialogs.setButtons(dialog, [
 			{
 				id: 'cancel',
 				title: 'Close'
@@ -35,7 +24,6 @@ joplin.plugins.register({
 		// process actions
 		for (const actionName in actions) {
 			const action = actions[actionName];
-
 			let activate = true;
 
 			if (activateOnlyIfEnabledInMarkdownSettings && actionName !== 'textStrikethrough') {
@@ -44,7 +32,7 @@ joplin.plugins.register({
 
 			joplin.commands.register({
 				name: actionName,
-				label: action.label,
+				label: action.parseFormType,
 				enabledCondition: 'markdownEditorPaneVisible && !richTextEditorVisible',
 				iconName: action.iconName,
 				execute: async () => {
@@ -54,16 +42,10 @@ joplin.plugins.register({
 					let newText = '' as string;
 					if(action.showDialog){
 						console.log('show dialog');
-						let dlg;
-						if(action.parseFormType==="Google Search"){
-							dlg=gsDialog;
-						}else{
-							dlg=trDialog;
-						}
-						await dialogs.setHtml(dlg, action.execute(selectedText));
-						const result=await dialogs.open(dlg);
-						const formdata = result.formData.formdata;	
-						newText = parseFormData(formdata, action.parseFormType);
+						await dialogs.setHtml(dialog, action.execute(selectedText, action.label));
+						const result=await dialogs.open(dialog);
+						const formdata = result.formData.formdata;
+						newText = action.parseFormData(formdata);
 					}else{
 						console.log('return something else but dialog');
 						newText = action.execute(selectedText);
@@ -82,15 +64,3 @@ joplin.plugins.register({
 
 	},
 });
-
-function generateLink(stringLink: string, stringURL: string, genType = ''){
-	return (genType==="img"?"!":"")+"["+stringLink+"]"+"("+stringURL+")";
-}
-
-function parseFormData(formdata: any, actionType: string){
-	if(actionType==="Google Translate"){
-		return (formdata.resultText!=="")?formdata.resultText:formdata.query;
-	}else{
-		return (formdata.resultURL!=="")?generateLink(formdata.resultTitle, formdata.resultURL):formdata.query;
-	}
-}

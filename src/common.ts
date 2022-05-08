@@ -1,20 +1,19 @@
 
-function showGTDialog(selected: string){
-	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
-
-	return `
-	<div id='result'></div>
-	<form id='formdata' name='formdata'>
-	<input id='resultText' name='resultText' type='hidden' value=''>
-	${query}
-	</form>
-	`;
+function returnQuery(formdata: any){
+	return (formdata.resultText!=="")?formdata.resultText:formdata.query;
 }
 
-function showGSDialog(selected: string){
+function generateLink(formdata: any, genType = ''){
+	let link=formdata.resultTitle;
+	let url=formdata.resultURL;
+	return ((genType==="img"||genType==="image")?"!":"")+"["+link+"]"+"("+url+")";
+}
+
+function showDialog(selected: string, dlgTitle: string){
 	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
 
 	return `
+	<h1 id='dlgtitle'>${dlgTitle}</h1>
 	<h2 id='linktitle'></h2>
 	<div id='result'></div>
 	<form id='formdata' name='formdata'>
@@ -110,28 +109,31 @@ function getMediaId(selected: string, hostname: string, queryString: string){
 
 export const actions = {
 	textHexoTagOwl: {
-		label: 'hexo-tag-owl',
+		parseFormType: 'hexo-tag-owl',
 		iconName: 'fas fa-percent',
 		accelerator: 'CmdOrCtrl+Shift+W',
 		execute: wrapSelectionWithStrings,
-		parseFormType: '',
+		label: 'Hexo Tag Owl',
 		showDialog: false,
+		parseFormData: null,
 	},
 	textGoogleSearch: {
-		label: 'google-search',
+		parseFormType: 'google-search',
 		iconName: 'fab fa-google',
 		accelerator: 'CmdOrCtrl+Shift+G',
-		execute: showGSDialog,
-		parseFormType: 'Google Search',
+		execute: showDialog,
+		label: 'Google Search',
 		showDialog: true,
+		parseFormData: generateLink,
 	},
-	textGoogleTranslate: {
-		label: 'google-translate',
-		iconName: 'fa-duotone fa-language',
+	textTranslate: {
+		parseFormType: 'translate',
+		iconName: 'fas fa-globe',
 		accelerator: 'CmdOrCtrl+Shift+R',
-		execute: showGTDialog,
-		parseFormType: 'Google Translate',
+		execute: showDialog,
+		label: 'Translate',
 		showDialog: true,
+		parseFormData: returnQuery,
 	},
 };
 

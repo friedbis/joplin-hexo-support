@@ -1,6 +1,15 @@
 
+function URIencode(query:string){
+	let encquery=encodeURIComponent(query);
+	return encquery.replace("'", "%27");
+}
+function URIdecode(encquery: string){
+	let decquery=decodeURIComponent(encquery);
+	return decquery.replace("%27", "'");
+}
+
 function returnQuery(formdata: any){
-	return (formdata.resultTitle!=="")?formdata.resultTitle:formdata.query;
+	return (formdata.resultTitle!=="")?formdata.resultTitle:URIdecode(formdata.query);
 }
 
 function generateLink(formdata: any, genType = ''){
@@ -15,7 +24,8 @@ function generateLink(formdata: any, genType = ''){
 }
 
 function showDialog(selected: string, dlgTitle: string){
-	let query=`<input id='query' type='hidden' name='query' value='${selected}'>`;
+	let query=URIencode(selected);
+	let htmlquery=`<input id='query' type='hidden' name='query' value='${query}'>`;
 
 	return `
 	<h1 id='dlgtitle'>${dlgTitle}</h1>
@@ -24,7 +34,7 @@ function showDialog(selected: string, dlgTitle: string){
 	<form id='formdata' name='formdata'>
 	<input id='resultURL' name='resultURL' type='hidden' value=''>
 	<input id='resultTitle' name='resultTitle' type='hidden' value=''>
-	${query}
+	${htmlquery}
 	</form>
 	`;
 }
@@ -134,7 +144,7 @@ export const actions = {
 	textTranslate: {
 		parseFormType: 'translate',
 		iconName: 'fas fa-globe',
-		accelerator: 'CmdOrCtrl+Shift+R',
+		accelerator: 'CmdOrCtrl+Shift+E',
 		execute: showDialog,
 		label: 'Translate',
 		showDialog: true,

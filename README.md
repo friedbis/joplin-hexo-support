@@ -58,3 +58,6 @@ Select a link you want to paste into your note and click [__CLOSE__], and the di
 Translate a seleted text into the result in other language.
 This functions only works in Japanese to English or English to Japanese.
 And it also works only in one or a couple of words at once.
+
+#### Text Translation Examples
+

@@ -12,7 +12,7 @@ joplin.plugins.register({
 
 		const dialogs = joplin.views.dialogs;
 		const dialog = await dialogs.create('search_dialog');
-		await joplin.views.dialogs.addScript(dialog, 'jquery.min.js');
+		await joplin.views.dialogs.addScript(dialog, 'dialog.js');
 		await joplin.views.dialogs.addScript(dialog, 'dialog.css');
 		await dialogs.setButtons(dialog, [
 			{

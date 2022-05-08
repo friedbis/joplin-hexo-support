@@ -1,6 +1,6 @@
 
 function returnQuery(formdata: any){
-	return (formdata.resultText!=="")?formdata.resultText:formdata.query;
+	return (formdata.resultTitle!=="")?formdata.resultTitle:formdata.query;
 }
 
 function generateLink(formdata: any, genType = ''){

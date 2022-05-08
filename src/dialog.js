@@ -1,6 +1,8 @@
 function init(){
-    let title=document.getElementById('dlgtitle');
-    if(title.search('Google Search')>-1){
+    let _title=document.getElementById('dlgtitle');
+
+    console.log('dialog initialized');
+    if(_title.innerText.search('Google Search')>-1){
         searchInGoogle();
     }else{
         searchInWebiio();
@@ -43,29 +45,45 @@ function searchInWebiio() {
         result.innerHTML+='<ul>';
         Array.prototype.forEach.call(div, function(element){
             let title=element.innerText;
+            let found=false;
 
             if(title.search('、')>-1){
                 Array.prototype.forEach.call(title.split('、'), function(trText){
                     result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickTranslateValue(${index})'>${trText}</li>`;
                     index++;
                 });
-            }else{
+                found=true;
+            }
+            if(title.search('。')>-1){
+                Array.prototype.forEach.call(title.split('。'), function(trText){
+                    result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickTranslateValue(${index})'>${trText}。</li>`;
+                    index++;
+                });
+                found=true;
+            }
+            if(title.search(';')>-1){
                 Array.prototype.forEach.call(title.split(';'), function(trText){
                     result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickTranslateValue(${index})'>${trText}</li>`;
                     index++;
                 });
+                found=true;
+            }
+            if(!found){
+                result.innerHTML+=`<li><a id='link_${index}' href='javascript:return false;' onclick='clickTranslateValue(${index})'>${title}</li>`;
+                index++;
             }
         });
         result.innerHTML+='</ul>';
     });
 }
 function clickTranslateValue(index){
-    let resultText=document.getElementById('resultText');
+    let resultTitle=document.getElementById('resultTitle');
     let linkText=document.getElementById("link_"+index).innerText;
     let linktitle=document.getElementById('linktitle');
 
+    console.log(linkText);
     linktitle.innerText=linkText;
-    resultText.value=linkText;
+    resultTitle.value=linkText;
     return true;
 }
 function clickLinkValue(url, index){
@@ -74,6 +92,7 @@ function clickLinkValue(url, index){
     let linktitle=document.getElementById('linktitle');
     let linkid=document.getElementById("link_"+index).innerText;
 
+    console.log(linkid);
     resultURL.value=url;
     linktitle.innerText=linkid;
     resultTitle.value=linkid;

@@ -17,7 +17,7 @@ function generateLink(formdata: any, genType = ''){
 	let url=formdata.resultURL;
 
 	if(link===""){
-		return formdata.query;
+		return URIdecode(formdata.query);
 	}else{
 		return ((genType==="img"||genType==="image")?"!":"")+"["+link+"]"+"("+url+")";
 	}

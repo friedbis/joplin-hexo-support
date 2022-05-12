@@ -38,7 +38,7 @@ Select a link you want to paste into your note and click [__CLOSE__], and the di
 
 #### <span style="text-decoration:underline;font-weight:bold;">Google Search Examples</span>
 
-|Selected Text| |Translated String|
+|Selected Text|<span style="white-space:nowrap;">-></span>|Translated String|
 |---|---|---|
 |Apple, Inc.| -> |<span style="color:#10855c;text-decoration:underline;">\[**Apple（日本）**](www.apple.com/jp/)</span>|
 |Joplin API References| -> |<span style="color:#10855c;text-decoration:underline;">\[**Joplin Plugin API Documentation**](joplinapp.org/api/references/plugin_api/classes/joplin.html)</span>|
@@ -53,11 +53,12 @@ And it also works only in one or a couple of words at once.
 
 #### Text Translation Examples
 
-|Selected Text| |Translated String|
+|Selected Text|<span style="white-space:nowrap;">-></span>|Translated String|
 |---|---|---|
 |Don't go| -> |<span style="color:#005ee3;text-decoration:underline;">**行かないで**</span>|
 |超常現象| -> |<span style="color:#005ee3;text-decoration:underline;">**psi**</span>|
 |Supercalifragilisticexpialidocious| -> |<span style="color:#005ee3;text-decoration:underline;">**すばらしい**</span>|
+|パタニティ| -> |<span style="color:#005ee3;text-decoration:underline;">**fatherhood**</span>|
 |パタニティ| -> |<span style="color:#005ee3;text-decoration:underline;">**fatherhood**</span>|
 
 

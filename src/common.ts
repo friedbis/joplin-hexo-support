@@ -75,7 +75,13 @@ function _wrapSelectionWithStrings(selected: string|null, Host: any) {
 		return defaulturl;
 	} else {
 		console.log('URL -> TagOWL');
-		const mediaid=getMediaId(selected, Host.hostname, Host.queryString);
+		let mediaid;
+		if(selected.search(Host.hostname)>0){
+			mediaid=getMediaId(selected, Host.hostname, Host.queryString);
+		}
+		if(selected.search(Host.anotherHostname)>0){
+			mediaid=getMediaId(selected, Host.anotherHostname, Host.queryString);
+		}
 		const tagowl=selected.slice(0, start) + Host.wrapString1 + mediaid + Host.wrapString2 + selected.slice(end + 1);
 		console.log('['+tagowl+']');
 		return tagowl;

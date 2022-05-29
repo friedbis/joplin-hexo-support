@@ -59,7 +59,7 @@ And it also works only in one or a couple of words at once.
 |超常現象| -> |<span style="color:#005ee3;text-decoration:underline;">**psi**</span>|
 |Supercalifragilisticexpialidocious| -> |<span style="color:#005ee3;text-decoration:underline;">**すばらしい**</span>|
 |パタニティ| -> |<span style="color:#005ee3;text-decoration:underline;">**fatherhood**</span>|
-|God only knows | -> |<span style="color:#005ee3;text-decoration:underline;">**God only knows**</span>|
+|Pokemon | -> |<span style="color:#005ee3;text-decoration:underline;">**ポケットモンスター**</span>|
 
 
 

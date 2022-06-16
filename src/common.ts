@@ -1,4 +1,3 @@
-
 function URIencode(query:string){
 	let encquery=encodeURIComponent(query);
 	return encquery.replace("'", "%27");
@@ -23,7 +22,7 @@ function generateLink(formdata: any, genType = ''){
 	}
 }
 
-function showDialog(selected: string, dlgTitle: string){
+function showDialog(selected: string, dlgTitle: string, apikey: string){
 	let query=URIencode(selected);
 	let htmlquery=`<input id='query' type='hidden' name='query' value='${query}'>`;
 
@@ -35,6 +34,7 @@ function showDialog(selected: string, dlgTitle: string){
 	<input id='resultURL' name='resultURL' type='hidden' value=''>
 	<input id='resultTitle' name='resultTitle' type='hidden' value=''>
 	${htmlquery}
+	<input id='APIKey' name='APIKey' type='hidden' value='${apikey}'>
 	</form>
 	`;
 }
@@ -137,6 +137,7 @@ export const actions = {
 		label: 'Hexo Tag Owl',
 		showDialog: false,
 		parseFormData: null,
+		apikey: null,
 	},
 	textGoogleSearch: {
 		parseFormType: 'google-search',
@@ -146,6 +147,7 @@ export const actions = {
 		label: 'Google Search',
 		showDialog: true,
 		parseFormData: generateLink,
+		apikey: null,
 	},
 	textTranslate: {
 		parseFormType: 'translate',
@@ -155,6 +157,17 @@ export const actions = {
 		label: 'Translate',
 		showDialog: true,
 		parseFormData: returnQuery,
+		apikey: null,
+	},
+	imageSearch: {
+		parseFormType: 'image search',
+		iconName: 'fas fa-file-image',
+		accelerator: 'CmdOrCtrl+Shift+X',
+		execute: showDialog,
+		label: 'Image Search',
+		showDialog: true,
+		parseFormData: generateLink,
+		apikey: null,
 	},
 };
 
@@ -226,10 +239,12 @@ export const hostList = {
 
 export const DTI_SETTINGS_PREFIX	  = 'hexoSupport.';
 export const ACTIVATE_ONLY_SETTING	= 'activateOnlyIfEnabledInMarkdownSettings';
+export const IMAGE_SEARCH_APIKEY_SETTING = 'apiKeyForImageSearch';
 export const DEFAULTID				= 'NNNNNNNN';
 
 export default {
 	actions,
 	DTI_SETTINGS_PREFIX,
 	ACTIVATE_ONLY_SETTING,
+	IMAGE_SEARCH_APIKEY_SETTING
 }

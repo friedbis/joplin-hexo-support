@@ -4,9 +4,49 @@ function init(){
     console.log('dialog initialized');
     if(_title.innerText.search('Google Search')>-1){
         searchInGoogle();
-    }else{
+    }
+    if(_title.innerText.search('Translate')>-1){
         searchInWebiio();
     }
+    if(_title.innerText.search('Image Search')>-1){
+        searchImageSearch();
+    }
+}
+
+function setResult(url, title){
+    document.getElementById('linktitle').innerHTML=title;
+    document.getElementById('resultURL').value=url;
+    document.getElementById('resultTitle').value=title;
+}
+
+function searchImageSearch(){
+    let pixabayengine='https://pixabay.com/api/';
+    let query=document.getElementById('query').value.replace(' ', '+');
+    let apikey=document.getElementById('APIKey').value;
+    let reshtml=document.getElementById('result');
+    reshtml.innerHTML+='<ul id="resultlist"></ul>';
+    result=document.getElementById('resultlist');
+
+    console.log('query:'+query+'');
+    fetch(pixabayengine + '?' + 'key=' + apikey + '&' + 'q=' + query).then(response=>response.text()).then(data=>{
+        let json = JSON.parse(data);
+        console.log('response hits:');
+        console.log(json.hits[0]);
+        for(let i=0;i<json.hits.length;i++){
+            //console.log(typeof json.hits[i]);
+            //console.log(json.hits[i]);
+            console.log(json.hits[i].webformatURL);
+            let img=document.createElement('img');
+            let li=document.createElement('li');
+            let anchor=document.createElement('a');
+            img.setAttribute("src",json.hits[i].webformatURL);
+            anchor.setAttribute('href','#');
+            anchor.setAttribute('onClick', 'javascript:setResult("'+json.hits[i].webformatURL+'","'+json.hits[i].id+'");');
+            anchor.appendChild(img);
+            li.appendChild(anchor);
+            result.appendChild(li);
+        }
+    });
 }
 
 function searchInGoogle() {

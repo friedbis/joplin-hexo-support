@@ -1,6 +1,6 @@
 import joplin from "api";
 import { SettingItemType } from "api/types";
-import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING } from "./common";
+import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING, IMAGE_SEARCH_APIKEY_SETTING } from "./common";
 
 export namespace settings {
 	const SECTION = 'MenuShortcutToolbarSettings';
@@ -34,6 +34,15 @@ export namespace settings {
 				type: SettingItemType.Bool,
 				label: 'Remove toolbar icon for ' + action.label + ' (requires restart)',
 			}
+		}
+
+		PLUGIN_SETTINGS[IMAGE_SEARCH_APIKEY_SETTING] = {
+			value: '',
+			public: true,
+			section: SECTION,
+			type: SettingItemType.String,
+			label: 'Pixabay Image Search API key',
+			description: 'Enter API key for Pixabay Image Search',
 		}
 
 		await joplin.settings.registerSettings(PLUGIN_SETTINGS);

@@ -2,13 +2,14 @@ import joplin from 'api';
 import { MenuItemLocation } from 'api/types';
 import { ToolbarButtonLocation } from 'api/types';
 import { settings } from "./settings";
-import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING, } from "./common";
+import { actions, DTI_SETTINGS_PREFIX, ACTIVATE_ONLY_SETTING, IMAGE_SEARCH_APIKEY_SETTING } from "./common";
 
 joplin.plugins.register({
 	onStart: async function() {
 		console.info('Hexo Support plugin started!');
 		await settings.register();
 		const activateOnlyIfEnabledInMarkdownSettings = await joplin.settings.value(ACTIVATE_ONLY_SETTING);
+		actions.imageSearch.apikey = await joplin.settings.value(IMAGE_SEARCH_APIKEY_SETTING);
 
 		const dialogs = joplin.views.dialogs;
 		const dialog = await dialogs.create('search_dialog');
@@ -42,10 +43,11 @@ joplin.plugins.register({
 					let newText = '' as string;
 					if(action.showDialog){
 						console.log('show dialog');
-						await dialogs.setHtml(dialog, action.execute(selectedText, action.label));
+						await dialogs.setHtml(dialog, action.execute(selectedText, action.label, action.apikey));
 						const result=await dialogs.open(dialog);
 						const formdata = result.formData.formdata;
-						newText = action.parseFormData(formdata);
+						let mediaType = (formdata.resultURL.search(".jpg")>-1)?'image':'';
+						newText = action.parseFormData(formdata, mediaType);
 					}else{
 						console.log('return something else but dialog');
 						newText = action.execute(selectedText);

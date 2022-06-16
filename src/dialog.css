@@ -1,7 +1,26 @@
+body {
+    width: 400px;
+
+}
+
 form {
     display: contents;
 }
 
 a {
     color:darkorange;
+}
+
+#result {
+    height: 200px;
+    overflow-y:scroll;
+}
+
+#result li {
+    list-style-type: none;
+}
+
+#result img {
+    width: 50%;
+    height: 50%;
 }

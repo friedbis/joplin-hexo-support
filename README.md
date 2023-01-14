@@ -66,7 +66,7 @@ And it also works only in one or a couple of words at once.
 
 ### ToDo Alarm
 
-Translate a selected datetime string into the original span tag. (Only for private use)
+Translate a selected datetime string into the original span tag. (for private use only)
 
 ```
 eg.
@@ -81,7 +81,7 @@ t:2023/01/23 12:00 -> <span class="todo">2023/01/23 12:00</span>
 
 ##### alarm
 
-For a notification at the date time (only one shot)
+For a notification at the date time (one shot)
 
 ##### todo
 

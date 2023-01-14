@@ -68,12 +68,16 @@ And it also works only in one or a couple of words at once.
 
 Translate a selected datetime string into the original span tag. (Only for private use)
 
-eg. a:2023/01/23 12:00 -> <span class="alarm">2023/01/23 12:00</span>
-    t:2023/01/23 12:00 -> <span class="todo">2023/01/23 12:00</span>
+```
+eg.
+a:2023/01/23 12:00 -> <span class="alarm">2023/01/23 12:00</span>
+t:2023/01/23 12:00 -> <span class="todo">2023/01/23 12:00</span>
+```
+
 
 #### Definition of class name
 
-WARNING: The definitions below are not for Joplin. An other tool makes a notice.
+**WARNING: The definitions below are not for Joplin. An other tool makes a notice.**
 
 ##### alarm
 

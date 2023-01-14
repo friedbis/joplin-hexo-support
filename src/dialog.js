@@ -13,10 +13,10 @@ function init(){
     }
 }
 
-function setResult(url, title){
-    document.getElementById('linktitle').innerHTML=title;
-    document.getElementById('resultURL').value=url;
-    document.getElementById('resultTitle').value=title;
+function setResult(imageURL, imageTitle){
+        document.getElementById('linktitle').innerHTML=imageTitle;
+        document.getElementById('resultURL').value=imageURL;
+        document.getElementById('resultTitle').value=imageTitle;
 }
 
 function searchImageSearch(){

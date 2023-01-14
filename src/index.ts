@@ -46,7 +46,9 @@ joplin.plugins.register({
 						await dialogs.setHtml(dialog, action.execute(selectedText, action.label, action.apikey));
 						const result=await dialogs.open(dialog);
 						const formdata = result.formData.formdata;
+						//console.log(formdata);
 						let mediaType = (formdata.resultURL.search(".jpg")>-1)?'image':'';
+						//console.log(mediaType);
 						newText = action.parseFormData(formdata, mediaType);
 					}else{
 						console.log('return something else but dialog');

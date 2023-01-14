@@ -1,3 +1,5 @@
+import joplin from "api";
+
 function URIencode(query:string){
 	let encquery=encodeURIComponent(query);
 	return encquery.replace("'", "%27");
@@ -5,6 +7,31 @@ function URIencode(query:string){
 function URIdecode(encquery: string){
 	let decquery=decodeURIComponent(encquery);
 	return decquery.replace("%27", "'");
+}
+
+function saveImageFile(formdata: any){
+	let imageURL = formdata.resultURL;
+	let imageTitle = formdata.resultTitle;
+
+	fetch(imageURL).then(response=>{
+		return response.blob();
+	}).then(blob=>{
+		return URL.createObjectURL(blob);
+	}).then(async data=>{
+		console.log(data);
+		console.log(imageURL);
+		console.log(imageTitle);
+		await joplin.data.post(
+			["resources"],
+			null,
+			{title: imageTitle+'.jpg'},
+			[
+				{
+					Blob: data,
+				}
+			]
+		);
+	});
 }
 
 function returnQuery(formdata: any){
@@ -37,6 +64,18 @@ function showDialog(selected: string, dlgTitle: string, apikey: string){
 	<input id='APIKey' name='APIKey' type='hidden' value='${apikey}'>
 	</form>
 	`;
+}
+
+function wrapToDoAlarmTag(selected: string|null){
+	let start = selected.search(/^[at]:(?=[\s])/);
+	let end = selected.search(/[^\s](?=[\s]*$)/);
+	let extracted = selected.slice(start, end + 1);
+	if(selected.search(/^a:/)>-1){
+		return `<span class="alarm">`+extracted+`</span>`;
+	}
+	if(selected.search(/^t:/)>-1){
+		return `<span class="todo">`+extracted+`</span>`;
+	}
 }
 
 function wrapSelectionWithStrings(selected: string|null){
@@ -166,7 +205,17 @@ export const actions = {
 		execute: showDialog,
 		label: 'Image Search',
 		showDialog: true,
-		parseFormData: generateLink,
+		parseFormData: saveImageFile,
+		apikey: null,
+	},
+	insertToDoAlarm: {
+		parseFormType: 'ToDo Alarm',
+		iconName: 'fas fa-bullhorn',
+		accelerator: 'CmdOrCtrl+Shift+A',
+		execute: wrapToDoAlarmTag,
+		label: 'ToDo Alarm',
+		showDialog: false,
+		parseFormData: null,
 		apikey: null,
 	},
 };

@@ -67,9 +67,12 @@ function showDialog(selected: string, dlgTitle: string, apikey: string){
 }
 
 function wrapToDoAlarmTag(selected: string|null){
-	let start = selected.search(/^[at]:(?=[\s])/);
-	let end = selected.search(/[^\s](?=[\s]*$)/);
-	let extracted = selected.slice(start, end + 1);
+	let start = selected.search(/^[at]:/);
+	let end = selected.search(/[^\s](?=[\s ]*$)/);
+	let extracted = selected.slice(start + 2, end + 1);
+	console.log(start);
+	console.log(end);
+	console.log(extracted);
 	if(selected.search(/^a:/)>-1){
 		return `<span class="alarm">`+extracted+`</span>`;
 	}
@@ -211,7 +214,7 @@ export const actions = {
 	insertToDoAlarm: {
 		parseFormType: 'ToDo Alarm',
 		iconName: 'fas fa-bullhorn',
-		accelerator: 'CmdOrCtrl+Shift+A',
+		accelerator: 'CmdOrCtrl+Shift+R',
 		execute: wrapToDoAlarmTag,
 		label: 'ToDo Alarm',
 		showDialog: false,

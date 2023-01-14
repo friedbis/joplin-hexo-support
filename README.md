@@ -9,6 +9,8 @@ This plugin is a support tool for Hexo.
 1. ~~[ToDo] Add items of **Google Search** and **Google Translate** into a context-menu for a selected text~~
 1. Press shortcut key for Google Search dialog, and translate a selected text into the search result in link format.
 1. Press shortcut key for Text Translation dialog, and translate a selected text into the text in other language.
+1. Wrap the datetime in tag of todo or alarm. (Only used for me)
+
 
 ### Hexo Tag Owl
 
@@ -62,4 +64,22 @@ And it also works only in one or a couple of words at once.
 |Pokemon | -> |<span style="color:#005ee3;text-decoration:underline;">**ポケットモンスター**</span>|
 
 
+### ToDo Alarm
+
+Translate a selected datetime string into the original span tag. (Only for private use)
+
+eg. a:2023/01/23 12:00 -> <span class="alarm">2023/01/23 12:00</span>
+    t:2023/01/23 12:00 -> <span class="todo">2023/01/23 12:00</span>
+
+#### Definition of class name
+
+WARNING: The definitions below are not for Joplin. An other tool makes a notice.
+
+##### alarm
+
+For a notification at the date time (only one shot)
+
+##### todo
+
+For a notification at the due date time (sticky alarm)
 
